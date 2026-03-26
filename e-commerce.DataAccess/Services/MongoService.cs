@@ -1,4 +1,4 @@
-﻿using e_commerce.Dtos;
+﻿using e_commerce.DataAccess.Dtos;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

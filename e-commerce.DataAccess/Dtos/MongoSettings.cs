@@ -1,4 +1,8 @@
-﻿namespace e_commerce.Dtos
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace e_commerce.DataAccess.Dtos
 {
     public class MongoSettings
     {

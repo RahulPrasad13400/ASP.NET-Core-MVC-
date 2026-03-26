@@ -20,9 +20,8 @@ namespace Ecommerce.Pages.Category
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
+            
 
             _mongoService.GetCollection<Ecommerce.Models.Category>("categories").InsertOne(Category);
 

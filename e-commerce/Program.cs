@@ -1,4 +1,4 @@
-using e_commerce.Dtos;
+using e_commerce.DataAccess.Dtos;
 using e_commerce.Services;
 
 var builder = WebApplication.CreateBuilder(args);

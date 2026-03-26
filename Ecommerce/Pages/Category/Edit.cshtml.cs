@@ -14,7 +14,8 @@ namespace Ecommerce.Pages.Category
         public void OnGet(string id)
         {
             Ecommerce.Models.Category category = _mongoService.GetCollection<Ecommerce.Models.Category>("categories")
-                                                    .Find(category => category.Id == id).First();
+                .Find(category => category.Id == id).First();
+            
             Category = category;
         }
 

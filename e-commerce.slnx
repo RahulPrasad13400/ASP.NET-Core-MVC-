@@ -1,4 +1,7 @@
 <Solution>
+  <Project Path="e-commerce.DataAccess/e-commerce.DataAccess.csproj" Id="0c18be07-848d-4535-840c-043baef1f3f8" />
+  <Project Path="e-commerce.Models/e-commerce.Models.csproj" Id="6c59f640-2121-4788-af46-fbf8b7e322e0" />
+  <Project Path="e-commerce.Utility/e-commerce.Utility.csproj" Id="b2bd5f18-0ded-473a-9210-55a50465b589" />
   <Project Path="e-commerce/e-commerce.csproj" />
-  <Project Path="Ecommerce/Ecommerce.csproj" />
+  <Project Path="Ecommerce/Ecommerce-Razor.csproj" />
 </Solution>
