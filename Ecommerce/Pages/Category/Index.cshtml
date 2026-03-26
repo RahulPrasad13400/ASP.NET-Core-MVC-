@@ -1,0 +1,51 @@
+﻿@page
+@model Ecommerce.Pages.Category.IndexModel
+@{
+}
+
+<div>
+    <div class="d-flex justify-content-between">
+        <h1>
+            <span class="me-2">
+                Category List
+            </span>
+            <i class="bi bi-emoji-sunglasses"></i>
+        </h1>
+        <a class="btn btn-dark text-white text-center align-content-center rounded-1" asp-page="/Category/Create">
+            <span class="me-2">
+                Create Category
+            </span>
+            <i class="bi bi-balloon-fill"></i>
+        </a>
+    </div>
+    <div class="mt-5">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Display Order</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Ecommerce.Models.Category category in Model.CategoryList)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>@category.DisplayOrder</td>
+                        <td>
+                            <a class="btn btn-outline-success rounded-2 me-2" asp-page="/Category/Edit" asp-route-id="@category.Id">
+                                Edit
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a class="btn btn-outline-danger rounded-2" asp-page="/Category/Delete" asp-route-id="@category.Id">
+                                Delete
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

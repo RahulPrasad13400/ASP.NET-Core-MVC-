@@ -1,0 +1,31 @@
+﻿@page
+@model Ecommerce.Pages.Category.DeleteModel
+@{
+}
+
+<h1>
+    <span class="me-2">
+        Delete Category
+    </span>
+    <span>
+        <i class="bi bi-tux"></i>
+    </span>
+</h1>
+
+<form method="post" asp-action="Delete">
+    <fieldset>
+        <input type="hidden" asp-for="Category.Id" />
+        <div>
+            <label class="form-label mt-4">Name</label>
+            <input readonly class="form-control" placeholder="Enter Name" asp-for="Category.Name">
+        </div>
+        <div>
+            <label class="form-label mt-4">Display Order</label>
+            <input readonly class="form-control" placeholder="Enter Display Order" asp-for="Category.DisplayOrder">
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary me-2">Delete</button>
+            <a class="btn btn-light" asp-page="/Category/Index">Back to list</a>
+        </div>
+    </fieldset>
+</form>
