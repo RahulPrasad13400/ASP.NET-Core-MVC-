@@ -6,7 +6,7 @@ using System.Text;
 
 namespace e_commerce.DataAccess.Repository
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly MongoService _mongoService;
         public ICategoryRepository Category { get; private set; }

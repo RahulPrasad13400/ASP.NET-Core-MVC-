@@ -1,4 +1,5 @@
 using e_commerce.DataAccess.Dtos;
+using e_commerce.DataAccess.Repository;
 using e_commerce.DataAccess.Repository.IRepository;
 using e_commerce.Services;
 
@@ -11,8 +12,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoSettings"));
 builder.Services.AddSingleton<MongoService>();
 
-// IRepository
-builder.Services.AddScoped<ICategoryRepository, ICategoryRepository>();
+// Repository Pattern
+//builder.Services.AddScoped<ICategoryRepository, ICategoryRepository>();
+
+// Changing repository pattern to Unit of Work pattern
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -25,18 +29,18 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// Serve static files from wwwroot
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}") // Its the default route pattern for MVC applications,
-                                                       // where the default controller is "Home" and the default action is "Index".
-                                                       // The "{id?}" part means that the "id" parameter is optional.
-    .WithStaticAssets();
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+    // Its the default route pattern for MVC applications, where the default controller is "Home" and the default action is "Index".
+    // The "{id?}" part means that the "id" parameter is optional.
 
 
 app.Run();

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
     <PackageReference Include="MongoDB.Driver" Version="3.7.1" />
   </ItemGroup>
 
@@ -15,6 +16,10 @@
     <ProjectReference Include="..\e-commerce.DataAccess\e-commerce.DataAccess.csproj" />
     <ProjectReference Include="..\e-commerce.Models\e-commerce.Models.csproj" />
     <ProjectReference Include="..\e-commerce.Utility\e-commerce.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

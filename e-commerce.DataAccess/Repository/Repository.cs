@@ -1,10 +1,11 @@
-﻿using System;
+﻿using e_commerce.DataAccess.Repository.IRepository;
+using e_commerce.Services;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using e_commerce.DataAccess.Repository.IRepository;
-using e_commerce.Services;
-using MongoDB.Driver;
 
 namespace e_commerce.DataAccess.Repository
 {
@@ -32,8 +33,11 @@ namespace e_commerce.DataAccess.Repository
 
         public void Remove(T entity)
         {
-            object id = GetId(entity);
-            _collection.DeleteOne(Builders<T>.Filter.Eq("_id", id));
+            var id = GetId(entity);
+            var objectId = new ObjectId(id.ToString());
+            _collection.DeleteOne(
+                Builders<T>.Filter.Eq("_id", objectId)
+            );
         }
 
         public void RemoveRange(IEnumerable<T> entities)
@@ -52,7 +56,7 @@ namespace e_commerce.DataAccess.Repository
         {
             PropertyInfo? props = typeof(T).GetProperty("Id");
 
-            if (props != null)
+            if (props == null)
                 throw new Exception("Entity must have an Id Property");
 
             return props.GetValue(entity);
