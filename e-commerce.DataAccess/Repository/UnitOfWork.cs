@@ -10,11 +10,13 @@ namespace e_commerce.DataAccess.Repository
     {
         private readonly MongoService _mongoService;
         public ICategoryRepository Category { get; private set; }
+        public IProductRepository Product { get; private set; }
 
         public UnitOfWork(MongoService mongoService)
         {
             _mongoService = mongoService;
             Category = new CategoryRepository(_mongoService);  
+            Product = new ProductRepository(_mongoService);
         }
 
         public void Save()
