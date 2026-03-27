@@ -1,5 +1,5 @@
-﻿using e_commerce.Models;
-using e_commerce.Services;
+﻿using e_commerce.DataAccess.Repository.IRepository;
+using e_commerce.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -7,14 +7,14 @@ namespace e_commerce.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly MongoService _mongoService;
-        public CategoryController(MongoService mongoService)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _mongoService = mongoService;
+            _categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
-            List<Category> categoryList = _mongoService.GetCollection<Category>("categories").Find(_ => true).ToList(); 
+            List<Category> categoryList = [.. _categoryRepository.GetAll()];
             return View(categoryList);
         }
 
@@ -33,7 +33,7 @@ namespace e_commerce.Controllers
             if (!ModelState.IsValid)
                 return View(category);
             
-            _mongoService.GetCollection<Category>("categories").InsertOne(category);
+            _categoryRepository.Add(category);
             TempData["success"] = "Category created successfully";
             return RedirectToAction("Index");
         }
@@ -43,11 +43,10 @@ namespace e_commerce.Controllers
         {
             if(string.IsNullOrWhiteSpace(id))
                 return NotFound();
-            
-            Category category = _mongoService.GetCollection<Category>("categories")
-                .Find(category => category.Id == id).FirstOrDefault();
 
-            if(category == null)
+            Category category = _categoryRepository.Get(c => c.Id == id);
+
+            if (category == null)
                 return NotFound();
 
             return View(category);
@@ -59,8 +58,8 @@ namespace e_commerce.Controllers
             if (!ModelState.IsValid)
                 return View(category);
 
-            IMongoCollection<Category> categoryCollection = _mongoService.GetCollection<Category>("categories");
-            categoryCollection.ReplaceOne(c => c.Id == category.Id, category);
+            _categoryRepository.Update(category);
+
             TempData["success"] = "Category updated successfully";  
             return RedirectToAction("Index");
         }
@@ -68,19 +67,17 @@ namespace e_commerce.Controllers
         [HttpGet]
         public IActionResult Delete(string id)
         {
-            Category category = _mongoService.GetCollection<Category>("categories")
-                .Find(category => category.Id == id).FirstOrDefault();
+            Category category = _categoryRepository.Get(c => c.Id == id);
             return View(category);
         }
 
         [HttpPost]
         public IActionResult Delete(Category category)
         {
-            IMongoCollection<Category> categoryCollection = _mongoService.GetCollection<Category>("categories");
-            categoryCollection.DeleteOne(c => c.Id == category.Id);
+            _categoryRepository.Remove(category);
+
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
-
         }
     }
 }

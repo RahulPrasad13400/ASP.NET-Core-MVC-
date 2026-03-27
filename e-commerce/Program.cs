@@ -1,4 +1,5 @@
 using e_commerce.DataAccess.Dtos;
+using e_commerce.DataAccess.Repository.IRepository;
 using e_commerce.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,9 @@ builder.Services.AddControllersWithViews();
 // Registering MongoService
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoSettings"));
 builder.Services.AddSingleton<MongoService>();
+
+// IRepository
+builder.Services.AddScoped<ICategoryRepository, ICategoryRepository>();
 
 var app = builder.Build();
 
