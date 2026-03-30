@@ -30,7 +30,8 @@ namespace e_commerce.Areas.Admin.Controllers
                 Text = c.Name
             });
 
-            ViewBag.CategoryList = CategoryList;
+            //ViewBag.CategoryList = CategoryList;
+            ViewData["CategoryList"] = CategoryList;
 
             return View();
         }
