@@ -42,6 +42,7 @@ namespace e_commerce.Models.Models
         public string ImageUrl { get; set; } = string.Empty;
 
         // FOR FOREIGN CONNECTION BETWEEN THE PRODUCT AND THE CATEGORY
-        public string CategoryId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string CategoryId { get; set; } = string.Empty;
     }
 }

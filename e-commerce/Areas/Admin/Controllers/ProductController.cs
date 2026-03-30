@@ -1,6 +1,7 @@
 ﻿using e_commerce.DataAccess.Repository.IRepository;
 using e_commerce.Models.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace e_commerce.Areas.Admin.Controllers
 {
@@ -22,6 +23,15 @@ namespace e_commerce.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            // SelectListItem - special class used for dropdown options
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem()
+            {
+                Value = c.Id,
+                Text = c.Name
+            });
+
+            ViewBag.CategoryList = CategoryList;
+
             return View();
         }
         [HttpPost]
