@@ -1,5 +1,7 @@
 ﻿using e_commerce.DataAccess.Repository.IRepository;
+using e_commerce.Models;
 using e_commerce.Models.Models;
+using e_commerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -16,7 +18,15 @@ namespace e_commerce.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> productList = _unitOfWork.Product.GetAll().ToList();
-            return View(productList);
+            List<Category> categoryList = _unitOfWork.Category.GetAll().ToList();
+
+            var productVmList = productList.Select(p => new ProductVM()
+            {
+                Product = p,
+                CategoryName = categoryList.FirstOrDefault(c => c.Id == p.CategoryId)?.Name
+            }).ToList();
+
+            return View(productVmList);
         }
 
         // CREATE PRODUCT
@@ -31,17 +41,29 @@ namespace e_commerce.Areas.Admin.Controllers
             });
 
             //ViewBag.CategoryList = CategoryList;
-            ViewData["CategoryList"] = CategoryList;
+            //ViewData["CategoryList"] = CategoryList;
 
-            return View();
+            ProductVM productVM = new ProductVM()
+            {
+                Product = new Product(),
+                CategoryList = CategoryList
+            };
+
+            return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM obj)
         {
             if (!ModelState.IsValid)
-                return View(product);
+            {
+                obj.CategoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id
+                });
+            }
 
-            _unitOfWork.Product.Add(product);
+            _unitOfWork.Product.Add(obj.Product);
             TempData["success"] = "Product created successfully";
             return RedirectToAction("Index");
         }

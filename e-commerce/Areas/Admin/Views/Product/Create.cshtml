@@ -1,4 +1,4 @@
-﻿@model e_commerce.Models.Models.Product
+﻿@model ProductVM
 
 
 <div class="card shadow border-0 mt-4">
@@ -25,42 +25,42 @@
 
                 <div>
                     <label class="form-label mt-4">Title</label>
-                    <input class="form-control" type="text" placeholder="Enter Name" asp-for="Title">
-                    <span asp-validation-for="Title" class="text-danger mt-1"></span>
+                    <input class="form-control" type="text" placeholder="Enter Name" asp-for="Product.Title">
+                    <span asp-validation-for="Product.Title" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     <label class="form-label mt-4">Author</label>
-                    <input class="form-control" type="text" placeholder="Enter Author" asp-for="Author">
-                    <span asp-validation-for="Author" class="text-danger mt-1"></span>
+                    <input class="form-control" type="text" placeholder="Enter Author" asp-for="Product.Author">
+                    <span asp-validation-for="Product.Author" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     <label class="form-label mt-4">Description</label>
-                    <textarea class="form-control" type="text" placeholder="Enter Description" asp-for="Description"></textarea>
+                    <textarea class="form-control" type="text" placeholder="Enter Description" asp-for="Product.Description"></textarea>
                 </div>
                 <div>
                     <label class="form-label mt-4">ISBN</label>
-                    <input class="form-control" type="text" placeholder="Enter ISBN" asp-for="ISBN" />
-                    <span asp-validation-for="ISBN" class="text-danger mt-1"></span>
+                    <input class="form-control" type="text" placeholder="Enter ISBN" asp-for="Product.ISBN" />
+                    <span asp-validation-for="Product.ISBN" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     <label class="form-label mt-4">List Price</label>
-                    <input class="form-control" type="number" placeholder="Enter the List Price" asp-for="ListPrice" />
-                    <span asp-validation-for="ListPrice" class="text-danger mt-1"></span>
+                    <input class="form-control" type="number" placeholder="Enter the List Price" asp-for="Product.ListPrice" />
+                    <span asp-validation-for="Product.ListPrice" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     <label class="form-label mt-4">Price 1-50</label>
-                    <input type="number" class="form-control" placeholder="Enter the 1-50 Price" asp-for="Price" />
-                    <span asp-validation-for="Price" class="text-danger mt-1"></span>
+                    <input type="number" class="form-control" placeholder="Enter the 1-50 Price" asp-for="Product.Price" />
+                    <span asp-validation-for="Product.Price" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     <label class="form-label mt-4">Price 50+</label>
-                    <input type="number" class="form-control" placeholder="Enter the 50+ Price" asp-for="Price50" />
-                    <span asp-validation-for="Price50" class="text-danger mt-1"></span>
+                    <input type="number" class="form-control" placeholder="Enter the 50+ Price" asp-for="Product.Price50" />
+                    <span asp-validation-for="Product.Price50" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     <label class="form-label mt-4">Price 100+</label>
-                    <input type="number" class="form-control" placeholder="Enter the 100 Price" asp-for="Price100" />
-                    <span asp-validation-for="Price100" class="text-danger mt-1"></span>
+                    <input type="number" class="form-control" placeholder="Enter the 100 Price" asp-for="Product.Price100" />
+                    <span asp-validation-for="Product.Price100" class="text-danger mt-1"></span>
                 </div>
                 <div>
                     @* ViewBag
@@ -69,7 +69,12 @@
                     </select> *@
                     
                     @* ViewData *@
-                    <select asp-for="CategoryId" asp-items="@(ViewData["CategoryList"] as IEnumerable<SelectListItem>)" 
+                    @* <select asp-for="CategoryId" asp-items="@(ViewData["CategoryList"] as IEnumerable<SelectListItem>)" 
+                        class="form-select mt-4 w-100 py-2">
+                        <option>Select Category</option>
+                    </select> *@
+
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" 
                         class="form-select mt-4 w-100 py-2">
                         <option>Select Category</option>
                     </select>
